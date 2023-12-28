@@ -5,6 +5,7 @@ import * as pactum from 'pactum';
 import { PrismaService } from '../src/prisma/prisma.service';
 import { AuthDto } from '../src/auth/dto';
 import { EditUserDto } from '../src/user/dto';
+import { CreatePizzaOrderDto, EditPizzaOrderDto } from '../src/pizza-order/dto';
 
 describe('App e2e', () => {
   let app: INestApplication;
@@ -123,15 +124,88 @@ describe('App e2e', () => {
     });
   });
 
-  describe('Bookmarks', () => {
-    describe('Create bookmarks', () => {});
+  describe('PizzaOrders', () => {
+    describe('Get empty pizzaOrders', () => {
+      it('should get pizzaOrders', () => {
+        return pactum
+          .spec()
+          .get('/pizzaorders')
+          .withHeaders({ Authorization: `Bearer $S{userAt}` })
+          .expectStatus(200)
+          .expectBody([]);
+      });
+    });
 
-    describe('Get bookmarks', () => {});
+    describe('Create pizzaOrder', () => {
+      const dto: CreatePizzaOrderDto = { name: 'BBQ', extra: 'Eggs' };
+      it('Should create pizzaOrder', () => {
+        return pactum
+          .spec()
+          .post('/pizzaorders')
+          .withHeaders({ Authorization: `Bearer $S{userAt}` })
+          .withBody(dto)
+          .expectStatus(201)
+          .stores('pizzaOrderId', 'id');
+      });
+    });
 
-    describe('Get bookmark by id', () => {});
+    describe('Get pizzaOrders', () => {
+      it('should get pizzaOrders', () => {
+        return pactum
+          .spec()
+          .get('/pizzaorders')
+          .withHeaders({ Authorization: `Bearer $S{userAt}` })
+          .expectStatus(200)
+          .expectJsonLength(1);
+      });
+    });
 
-    describe('Edit bookmark by id', () => {});
+    describe('Get pizzaOrder by id', () => {
+      it('Should get pizzaOder by id', () => {
+        return pactum
+          .spec()
+          .withPathParams('id', '$S{pizzaOrderId}')
+          .get('/pizzaorders/{id}')
+          .withHeaders({ Authorization: `Bearer $S{userAt}` })
+          .expectStatus(200)
+          .expectBodyContains('$S{pizzaOrderId}');
+      });
+    });
 
-    describe('Delete bookmark', () => {});
+    describe('Edit pizzaOrder by id', () => {
+      const dto: EditPizzaOrderDto = { name: 'Hawaiian', extra: 'Eggs' };
+
+      it('should edit pizzaOrder', () => {
+        return pactum
+          .spec()
+          .withPathParams('id', '$S{pizzaOrderId}')
+          .withBody(dto)
+          .patch('/pizzaorders/{id}')
+          .withHeaders({ Authorization: `Bearer $S{userAt}` })
+          .expectStatus(200)
+          .expectBodyContains(dto.name)
+          .expectBodyContains(dto.extra);
+      });
+    });
+
+    describe('Delete pizzaOrder', () => {
+      it('should delete pizzaOrder', () => {
+        return pactum
+          .spec()
+          .withPathParams('id', '$S{pizzaOrderId}')
+          .delete('/pizzaorders/{id}')
+          .withHeaders({ Authorization: `Bearer $S{userAt}` })
+          .expectStatus(204);
+      });
+
+      it('should get empty pizzaOrders', () => {
+        return pactum
+          .spec()
+          .get('/pizzaorders')
+          .withHeaders({ Authorization: `Bearer $S{userAt}` })
+          .expectStatus(200)
+          .expectJsonLength(0);
+      });
+    });
   });
 });

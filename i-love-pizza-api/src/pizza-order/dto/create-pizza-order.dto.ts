@@ -8,5 +8,5 @@ export class CreatePizzaOrderDto {
 
   @IsString()
   @IsOptional()
-  extra: string;
+  extra?: string;
 }
