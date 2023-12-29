@@ -125,8 +125,8 @@ describe('App e2e', () => {
   });
 
   describe('PizzaOrders', () => {
-    describe('Get empty pizzaOrders', () => {
-      it('should get pizzaOrders', () => {
+    describe('Get empty pizza-orders', () => {
+      it('should get pizza-orders', () => {
         return pactum
           .spec()
           .get('/pizzaorders')
@@ -136,9 +136,9 @@ describe('App e2e', () => {
       });
     });
 
-    describe('Create pizzaOrder', () => {
+    describe('Create pizza-order', () => {
       const dto: CreatePizzaOrderDto = { name: 'BBQ', extra: 'Eggs' };
-      it('Should create pizzaOrder', () => {
+      it('Should create pizza-order', () => {
         return pactum
           .spec()
           .post('/pizzaorders')
@@ -149,8 +149,8 @@ describe('App e2e', () => {
       });
     });
 
-    describe('Get pizzaOrders', () => {
-      it('should get pizzaOrders', () => {
+    describe('Get pizza-orders', () => {
+      it('should get pizza-orders', () => {
         return pactum
           .spec()
           .get('/pizzaorders')
@@ -160,7 +160,7 @@ describe('App e2e', () => {
       });
     });
 
-    describe('Get pizzaOrder by id', () => {
+    describe('Get pizza-order by id', () => {
       it('Should get pizzaOder by id', () => {
         return pactum
           .spec()
@@ -172,10 +172,10 @@ describe('App e2e', () => {
       });
     });
 
-    describe('Edit pizzaOrder by id', () => {
+    describe('Edit pizza-order by id', () => {
       const dto: EditPizzaOrderDto = { name: 'Hawaiian', extra: 'Eggs' };
 
-      it('should edit pizzaOrder', () => {
+      it('should edit pizza-order', () => {
         return pactum
           .spec()
           .withPathParams('id', '$S{pizzaOrderId}')
@@ -188,8 +188,8 @@ describe('App e2e', () => {
       });
     });
 
-    describe('Delete pizzaOrder', () => {
-      it('should delete pizzaOrder', () => {
+    describe('Delete pizza-order', () => {
+      it('should delete pizza-order', () => {
         return pactum
           .spec()
           .withPathParams('id', '$S{pizzaOrderId}')
@@ -198,7 +198,7 @@ describe('App e2e', () => {
           .expectStatus(204);
       });
 
-      it('should get empty pizzaOrders', () => {
+      it('should get empty pizza-orders', () => {
         return pactum
           .spec()
           .get('/pizzaorders')

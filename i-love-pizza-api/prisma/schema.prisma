@@ -37,7 +37,7 @@ model PizzaOrder {
   userId Int
   user   User @relation(fields: [userId], references: [id])
 
-  @@map("pizzaOrders")
+  @@map("pizza-orders")
 }
 
 enum PizzaName {
