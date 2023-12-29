@@ -1,0 +1,8 @@
+<div>
+  <label for="new-pizza-order">Pizza name: </label>
+  <input id="new-pizza-order" #pizzaName />
+
+  <button type="button" class="add-button" (click)="add(pizzaName.value);pizzaName.value=''">
+    Add pizza order
+  </button>
+</div>

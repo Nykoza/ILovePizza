@@ -1,0 +1,10 @@
+<h2>My pizza orders</h2>
+<ul class="pizza-orders">
+  <li *ngFor="let pizzaOrder of pizzaOrders">
+    <button [class.selected]="pizzaOrder === selectedPizzaOrder" type="button" (click)="onSelect(pizzaOrder)">
+      <span class="name">{{pizzaOrder.name}}</span>
+    </button>
+  </li>
+</ul>
+
+<app-pizza-order-details [pizzaOrder]="selectedPizzaOrder"></app-pizza-order-details>
