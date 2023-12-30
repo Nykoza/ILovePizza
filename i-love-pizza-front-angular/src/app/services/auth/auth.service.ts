@@ -5,6 +5,7 @@ import { RequestClientService } from '../request-client/request-client.service';
 import { Auth, AuthPayload } from './auth';
 import { catchError, tap } from 'rxjs/operators';
 import { LocalStorageService } from '../local-storage/local-storage.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -42,6 +43,22 @@ export class AuthService {
 
   getAccessToken() {
     return this.localStorageService.get('access_token');
+  }
+
+  isSignedIn(): boolean {
+    const accessToken = this.localStorageService.get('access_token');
+    if (!accessToken) {
+      return false;
+    }
+
+    const jwtPayload = jwtDecode(accessToken);
+    if (!jwtPayload || !jwtPayload.exp) return false;
+
+    if (Date.now() >= jwtPayload.exp * 1000) {
+      return false;
+    }
+
+    return true;
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
