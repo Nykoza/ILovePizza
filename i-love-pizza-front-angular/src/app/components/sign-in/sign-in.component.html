@@ -1,1 +1,11 @@
-<p>sign-in works!</p>
+<div class="form-modal">
+  <label for="email">Email: </label>
+  <input id="email" #email>
+
+  <label for="password">Password: </label>
+  <input type="password" id="password" #password>
+
+  <button type="button" class="create-account-button" (click)="signIn(email.value, password.value)">
+    Sign in
+  </button>
+</div>

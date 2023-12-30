@@ -16,7 +16,7 @@ export class AuthService {
 
   signIn(email: string, password: string): Observable<any> {
     const body: AuthPayload = { email: email, password };
-    return this.requestService.post('/auth/signin', body).pipe(
+    return this.requestService.postUnsecured('/auth/signin', body).pipe(
       tap((_) => this.log(`Signin with email=${email}`)),
       catchError(this.handleError<Auth>('SignIn')),
     );
