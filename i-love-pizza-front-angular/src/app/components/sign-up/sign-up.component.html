@@ -1,11 +1,11 @@
 <div class="form-modal">
-  <label for="new-username">Username: </label>
-  <input id="new-username" #username>
+  <label for="new-email">Email: </label>
+  <input id="new-email" #email>
 
   <label for="new-password">Password: </label>
   <input type="password" id="new-password" #password>
 
-  <button type="button" class="create-account-button" (click)="createAccount(username.value, password.value)">
+  <button type="button" class="create-account-button" (click)="createAccount(email.value, password.value)">
     Create Account
   </button>
 </div>

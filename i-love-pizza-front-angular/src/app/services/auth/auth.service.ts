@@ -14,18 +14,18 @@ export class AuthService {
     private requestService: RequestClientService,
   ) {}
 
-  signIn(username: string, password: string): Observable<any> {
-    const body: AuthPayload = { username, password };
+  signIn(email: string, password: string): Observable<any> {
+    const body: AuthPayload = { email: email, password };
     return this.requestService.post('/auth/signin', body).pipe(
-      tap((_) => this.log(`Signin with username=${username}`)),
+      tap((_) => this.log(`Signin with email=${email}`)),
       catchError(this.handleError<Auth>('SignIn')),
     );
   }
 
-  signUp(username: string, password: string): Observable<any> {
-    const body: AuthPayload = { username, password };
+  signUp(email: string, password: string): Observable<any> {
+    const body: AuthPayload = { email: email, password };
     return this.requestService.postUnsecured('/auth/signup', body).pipe(
-      tap((_) => this.log(`Signup with username=${username}`)),
+      tap((_) => this.log(`Signup with email=${email}`)),
       catchError(this.handleError<Auth>('SignUp')),
     );
   }

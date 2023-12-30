@@ -11,9 +11,9 @@ import { AuthService } from '../../services/auth/auth.service';
 export class SignUpComponent {
   constructor(private authService: AuthService) {}
 
-  createAccount(username: string, password: string) {
+  createAccount(email: string, password: string) {
     this.authService
-      .signUp(username, password)
+      .signUp(email, password)
       .subscribe((value) => console.log(value));
   }
 }
