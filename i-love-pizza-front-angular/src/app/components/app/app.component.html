@@ -1,8 +1,14 @@
 <h1>{{title}}</h1>
-<nav class="navbar">
-  <a routerLink="/dashboard">Dashboard</a>
-  <a routerLink="/pizza-orders">Pizza orders</a>
-  <a routerLink="/pizza-order-form">Command a pizza</a>
-</nav>
+<div class="navbar-container">
+  <nav class="navbar">
+    <a routerLink="/dashboard">Dashboard</a>
+    <a routerLink="/pizza-orders">Pizza orders</a>
+    <a routerLink="/pizza-order-form">Command a pizza</a>
+  </nav>
+  <nav class="navbar">
+    <a routerLink="/signup">Signup</a>
+    <a routerLink="/signin">Signin</a>
+  </nav>
+</div>
 <router-outlet></router-outlet>
 <app-messages></app-messages>

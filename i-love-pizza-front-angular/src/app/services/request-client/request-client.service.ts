@@ -33,4 +33,10 @@ export class RequestClientService {
       headers: this.httpHeaders,
     });
   }
+
+  postUnsecured<R, B>(path: string, body: B): Observable<R> {
+    return this.http.post<R>(this.baseUrl + path, body, {
+      headers: this.httpHeaders,
+    });
+  }
 }
