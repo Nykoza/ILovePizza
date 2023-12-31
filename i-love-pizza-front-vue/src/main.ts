@@ -8,4 +8,8 @@ const app = createApp(App)
 
 app.use(router)
 
+app.config.errorHandler = (err) => {
+  console.error('An error occured:', err)
+}
+
 app.mount('#app')
