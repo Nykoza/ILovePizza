@@ -23,7 +23,7 @@ export class AuthService {
       .postUnsecured<Auth, any>('/auth/signin', body)
       .pipe(
         tap((auth) =>
-          this.localStorageService.set('access_toke', auth.access_token),
+          this.localStorageService.set('access_token', auth.access_token),
         ),
         catchError(this.handleError<Auth>('SignIn')),
       );
@@ -35,7 +35,7 @@ export class AuthService {
       .postUnsecured<Auth, any>('/auth/signup', body)
       .pipe(
         tap((auth) =>
-          this.localStorageService.set('access_toke', auth.access_token),
+          this.localStorageService.set('access_token', auth.access_token),
         ),
         catchError(this.handleError<Auth>('SignUp')),
       );
