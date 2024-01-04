@@ -2,6 +2,7 @@
 import AssignmentList from '../components/AssignmentList.vue'
 import { computed, ref } from 'vue'
 import type { AssignmentType } from '@/components/assignment'
+import AssignmentCreate from '@/components/AssignmentCreate.vue'
 
 const assignments = ref<AssignmentType[]>([
   {
@@ -21,6 +22,14 @@ const assignments = ref<AssignmentType[]>([
   }
 ])
 
+const add = (name: string) => {
+  assignments.value.push({
+    name,
+    complete: false,
+    id: assignments.value.length + 1
+  })
+}
+
 const filters = () =>
   computed(() => {
     return {
@@ -29,18 +38,14 @@ const filters = () =>
     }
   })
 </script>
+
 <template>
   <div class="h-full flex flex-col justify-center space-y-6">
     <AssignmentList :assignments="filters().value.inProgress" title="In Progress" />
 
     <AssignmentList :assignments="filters().value.completed" title="Completed" />
 
-    <form>
-      <div class="border border-gray-600">
-        <input type="text" placeholder="New assignment..." class="text-black" />
-        <button type="submit" class="bg-blue-500 text-white p-2 rounded">Add</button>
-      </div>
-    </form>
+    <AssignmentCreate @add="add" />
   </div>
 </template>
 
