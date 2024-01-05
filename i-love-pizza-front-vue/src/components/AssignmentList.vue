@@ -1,16 +1,23 @@
 <script setup lang="ts">
 import type { AssignmentType } from '@/models/assignment'
-import { ref } from 'vue'
 import Assignment from '@/components/AnAssignment.vue'
+import { computed, ref } from 'vue'
+import AssignmentTags from '@/components/AssignmentTags.vue'
 
 interface Props {
   assignments: AssignmentType[]
   title: string
 }
 
-const tags = ref(['science', 'math', 'reading'])
-
 const props = defineProps<Props>()
+
+const currentTag = ref('all')
+
+const filteredAssignment = computed(() => {
+  if (currentTag.value === 'all') return props.assignments
+
+  return props.assignments.filter((a) => a.tag === currentTag.value)
+})
 
 const setComplete = (assignment: AssignmentType) => {
   const assignmentToChange = props.assignments.find((a) => a.id === assignment.id)
@@ -27,21 +34,17 @@ const setComplete = (assignment: AssignmentType) => {
       <span> ({{ assignments.length }}) </span>
     </h2>
 
-    <div class="flex gap-2">
-      <button
-        :key="tag"
-        v-for="tag in tags"
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-1 rounded text-xs"
-      >
-        {{ tag }}
-      </button>
-    </div>
+    <AssignmentTags
+      @change="currentTag = $event"
+      :tags="assignments.map((a) => a.tag)"
+      :currentTag="currentTag"
+    />
 
     <ul class="mt-6">
       <Assignment
         :key="assignment.id"
         :assignment="assignment"
-        v-for="assignment in assignments"
+        v-for="assignment in filteredAssignment"
         @setComplete="setComplete"
       />
     </ul>

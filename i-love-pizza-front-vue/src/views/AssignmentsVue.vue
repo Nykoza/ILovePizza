@@ -9,19 +9,19 @@ const assignments = ref<AssignmentType[]>([
     name: 'Finished project',
     complete: false,
     id: 1,
-    tags: ['math']
+    tag: 'math'
   },
   {
     name: 'Read chapter 4',
     complete: false,
     id: 2,
-    tags: ['reading']
+    tag: 'math'
   },
   {
     name: 'Turn in Homework',
     complete: false,
     id: 3,
-    tags: ['science']
+    tag: 'science'
   }
 ])
 
@@ -30,7 +30,7 @@ const add = (name: string) => {
     name,
     complete: false,
     id: assignments.value.length + 1,
-    tags: ['science']
+    tag: 'science'
   })
 }
 
