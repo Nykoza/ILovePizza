@@ -1,29 +1,19 @@
 <script setup lang="ts">
 import AssignmentList from '@/components/AssignmentList.vue'
-import { computed, ref } from 'vue'
+import { computed, onBeforeMount, ref } from 'vue'
 import type { AssignmentType } from '@/models/assignment'
 import AssignmentCreate from '@/components/AssignmentCreate.vue'
 
-const assignments = ref<AssignmentType[]>([
-  {
-    name: 'Finished project',
-    complete: false,
-    id: 1,
-    tag: 'math'
-  },
-  {
-    name: 'Read chapter 4',
-    complete: false,
-    id: 2,
-    tag: 'math'
-  },
-  {
-    name: 'Turn in Homework',
-    complete: false,
-    id: 3,
-    tag: 'science'
-  }
-])
+let assignments = ref<AssignmentType[]>([])
+
+onBeforeMount(() => {
+  fetch('http://localhost:3333/pizzaorders')
+    .then((res) => res.json())
+    .then((data) => {
+      assignments.value = data
+    })
+    .catch((err) => console.error(err))
+})
 
 const add = (name: string) => {
   assignments.value.push({
