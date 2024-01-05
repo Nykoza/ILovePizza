@@ -34,11 +34,7 @@ const setComplete = (assignment: AssignmentType) => {
       <span> ({{ assignments.length }}) </span>
     </h2>
 
-    <AssignmentTags
-      @change="currentTag = $event"
-      :tags="assignments.map((a) => a.tag)"
-      :currentTag="currentTag"
-    />
+    <AssignmentTags v-model:currentTag="currentTag" :tags="assignments.map((a) => a.tag)" />
 
     <ul class="mt-6">
       <Assignment
