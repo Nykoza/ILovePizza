@@ -1,24 +1,27 @@
 <script setup lang="ts">
-import AssignmentList from '../components/AssignmentList.vue'
+import AssignmentList from '@/components/AssignmentList.vue'
 import { computed, ref } from 'vue'
-import type { AssignmentType } from '@/components/assignment'
+import type { AssignmentType } from '@/models/assignment'
 import AssignmentCreate from '@/components/AssignmentCreate.vue'
 
 const assignments = ref<AssignmentType[]>([
   {
     name: 'Finished project',
     complete: false,
-    id: 1
+    id: 1,
+    tags: ['math']
   },
   {
     name: 'Read chapter 4',
     complete: false,
-    id: 2
+    id: 2,
+    tags: ['reading']
   },
   {
     name: 'Turn in Homework',
     complete: false,
-    id: 3
+    id: 3,
+    tags: ['science']
   }
 ])
 
@@ -26,7 +29,8 @@ const add = (name: string) => {
   assignments.value.push({
     name,
     complete: false,
-    id: assignments.value.length + 1
+    id: assignments.value.length + 1,
+    tags: ['science']
   })
 }
 

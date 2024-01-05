@@ -13,14 +13,16 @@ const add = () => {
 
 <template>
   <form @submit.prevent="add">
-    <div class="border border-gray-600">
+    <div class="flex border border-gray-600">
       <input
         type="text"
         v-model="newAssignment"
         placeholder="New assignment..."
-        class="text-black p-2"
+        class="text-black p-2 w-full"
       />
-      <button type="submit" class="bg-blue-500 text-white p-2 rounded">Add</button>
+      <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white p-2 rounded">
+        Add
+      </button>
     </div>
   </form>
 </template>

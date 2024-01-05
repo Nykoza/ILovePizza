@@ -1,26 +1,49 @@
 <script setup lang="ts">
-import type { AssignmentType } from '@/components/assignment'
+import type { AssignmentType } from '@/models/assignment'
+import { ref } from 'vue'
+import Assignment from '@/components/AnAssignment.vue'
 
 interface Props {
   assignments: AssignmentType[]
   title: string
 }
 
-defineProps<Props>()
+const tags = ref(['science', 'math', 'reading'])
+
+const props = defineProps<Props>()
+
+const setComplete = (assignment: AssignmentType) => {
+  const assignmentToChange = props.assignments.find((a) => a.id === assignment.id)
+  if (!assignmentToChange) return
+
+  assignmentToChange.complete = !assignmentToChange.complete
+}
 </script>
 
 <template>
   <section v-show="assignments.length" class="border-2 rounded border-gray-700 border-solid p-2">
-    <h2>{{ title }}</h2>
+    <h2>
+      {{ title }}
+      <span> ({{ assignments.length }}) </span>
+    </h2>
 
-    <ul>
-      <li :key="assignment.id" v-for="assignment in assignments">
-        <label class="p-2 flex justify-between items-center">
-          {{ assignment.name }}
+    <div class="flex gap-2">
+      <button
+        :key="tag"
+        v-for="tag in tags"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-1 rounded text-xs"
+      >
+        {{ tag }}
+      </button>
+    </div>
 
-          <input type="checkbox" v-model="assignment.complete" class="ml-3" />
-        </label>
-      </li>
+    <ul class="mt-6">
+      <Assignment
+        :key="assignment.id"
+        :assignment="assignment"
+        v-for="assignment in assignments"
+        @setComplete="setComplete"
+      />
     </ul>
   </section>
 </template>
